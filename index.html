@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Club Linear Transformation Visualizer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        input {
+            width: 50px;
+            margin: 5px;
+        }
+        button {
+            margin-top: 10px;
+        }
+        video {
+            display: block;
+            margin-top: 20px;
+            border: 1px solid #ccc;
+        }
+        /* Flex container for top inputs */
+        .top-inputs {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        /* Vector brackets */
+        .bracket-left, .bracket-right {
+            display: flex;
+            flex-direction: column;
+        }
+        .bracket-left div, .bracket-right div {
+            border-color: black;
+            border-style: solid;
+        }
+        .bracket-left div:nth-child(1), .bracket-right div:nth-child(1) {
+            border-width: 1px 0 0 0;
+            width: 8px;
+        }
+        .bracket-left div:nth-child(2) {
+            border-width: 0 0 0 1px;
+            height: 50px;
+        }
+        .bracket-right div:nth-child(2) {
+            border-width: 0 1px 0 0;
+            height: 50px;
+        }
+        .bracket-left div:nth-child(3), .bracket-right div:nth-child(3) {
+            border-width: 0 0 1px 0;
+            width: 8px;
+        }
+        .vector-container {
+            display: flex;
+            align-items: center;
+        }
+        .vector-inputs {
+            display: flex;
+            flex-direction: column;
+            width: 60px;
+        }
+        /* Matrix inputs stacked */
+        .matrix-inputs {
+            display: flex;
+            flex-direction: column;
+        }
+        .matrix-inputs .row {
+            display: flex;
+            gap: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>AI Club Linear Transformation Visualizer</h1>
+
+    <!-- Vector & Matrix Inputs -->
+    <div style="display: flex; align-items: flex-start; gap: 40px; margin-bottom: 20px;">
+        <!-- Vector (2x1) -->
+        <div>
+            <strong>Vector (2x1):</strong>
+            <div style="display: flex; align-items: center; margin-top: 5px;">
+                <!-- Left bracket -->
+                <div style="display: flex; flex-direction: column; align-items: flex-start; margin-right: 2px;">
+                    <div style="border-top: 2px solid black; width: 8px;"></div>
+                    <div style="border-left: 2px solid black; height: 70px;"></div>
+                    <div style="border-bottom: 2px solid black; width: 8px;"></div>
+                </div>
+
+                <!-- Vector inputs -->
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <input type="number" id="v0" value="2">
+                    <input type="number" id="v1" value="1">
+                </div>
+
+                <!-- Right bracket -->
+                <div style="display: flex; flex-direction: column; align-items: flex-end; margin-left: 2px;">
+                    <div style="border-top: 2px solid black; width: 8px;"></div>
+                    <div style="border-right: 2px solid black; height: 70px;"></div>
+                    <div style="border-bottom: 2px solid black; width: 8px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Matrix (2x2) -->
+        <div>
+            <strong>Matrix (2x2):</strong>
+            <div style="display: flex; align-items: center; margin-top: 5px;">
+                <!-- Left bracket -->
+                <div style="display: flex; flex-direction: column; align-items: flex-start; margin-right: 2px;">
+                    <div style="border-top: 2px solid black; width: 8px;"></div>
+                    <div style="border-left: 2px solid black; height: 70px;"></div>
+                    <div style="border-bottom: 2px solid black; width: 8px;"></div>
+                </div>
+
+                <!-- Matrix inputs -->
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <div class="matrix-row">
+                        <input type="number" id="m00" value="1">
+                        <input type="number" id="m01" value="0">
+                    </div>
+                    <div class="matrix-row">
+                        <input type="number" id="m10" value="-1">
+                        <input type="number" id="m11" value="1">
+                    </div>
+                </div>
+
+                <!-- Right bracket -->
+                <div style="display: flex; flex-direction: column; align-items: flex-end; margin-left: 2px;">
+                    <div style="border-top: 2px solid black; width: 8px;"></div>
+                    <div style="border-right: 2px solid black; height: 70px;"></div>
+                    <div style="border-bottom: 2px solid black; width: 8px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Button below inputs -->
+    <button id="runBtn" style="padding: 12px 12px; font-size: 12px;">Apply Transformation</button>
+
+    <!-- Result video below button -->
+    <h2>Result:</h2>
+    <video id="resultVideo" width="640" height="480" controls></video>
+
+    <script>
+        const runBtn = document.getElementById("runBtn");
+        const videoEl = document.getElementById("resultVideo");
+
+        runBtn.addEventListener("click", async () => {
+            // Gather vector
+            const vector = [
+                parseFloat(document.getElementById("v0").value),
+                parseFloat(document.getElementById("v1").value)
+            ];
+
+            // Gather matrix
+            const matrix = [
+                [parseFloat(document.getElementById("m00").value), parseFloat(document.getElementById("m01").value)],
+                [parseFloat(document.getElementById("m10").value), parseFloat(document.getElementById("m11").value)]
+            ];
+
+            // POST request to FastAPI
+            const response = await fetch("/transform", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ vector, matrix })
+            });
+
+            if (!response.ok) {
+                alert("Error generating video!");
+                return;
+            }
+
+            // Display video
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+            videoEl.src = url;
+            videoEl.load();
+            videoEl.play();
+        });
+    </script>
+</body>
+</html>
