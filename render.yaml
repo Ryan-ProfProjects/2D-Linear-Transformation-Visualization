@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: linear-transform
+    env: python
+    python_version: 3.14
+    build_command: pip install -r requirements.txt
+    start_command: python -m uvicorn main:app --host 0.0.0.0 --port 10000
+    packages:
+      - texlive-latex-base
+      - texlive-latex-extra
+      - texlive-fonts-recommended
+      - texlive-fonts-extra
+      - dvipng
