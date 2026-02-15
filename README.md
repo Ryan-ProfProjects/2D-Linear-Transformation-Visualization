@@ -1,8 +1,18 @@
 This project lets you visualize vectors, basis transformations, and matrices using Manim animations.
 Experiment with 2D vectors, see how linear transformations like rotations, shears, and reflections change both the plane and the vectors, and gain a deeper conceptual understanding of linear algebra for machine learning.
 
-Learning Goals
-	•	Visualize vector spaces and linear transformations
-	•	Connect matrix operations to geometric effects
-	•	Prepare for deeper topics in machine learning, PCA, and neural networks
+Follow the following steps to use this interactive.
 
+Install Python, version > 3.10
+
+Install dependences in the terminal of your IDE:
+
+`pip install -r requirements.txt`
+
+Run the app locally:
+
+`uvicorn main:app --reload`
+
+This should start a local web server on http://127.0.0.1:8000
+
+Go to http://127.0.0.1:8000 to use the visualizer.
