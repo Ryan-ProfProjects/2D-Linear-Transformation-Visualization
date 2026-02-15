@@ -45,29 +45,29 @@ async def apply_transformation(data: TransformData):
     if not os.path.exists(file_path):
         class Matrix(LinearTransformationScene):
             def __init__(self):
-                LinearTransformationScene.__init__(self, show_coordinates=False, leave_ghost_vectors=True, show_basis_vectors=True)
+                LinearTransformationScene.__init__(self, show_coordinates=True, leave_ghost_vectors=True, show_basis_vectors=True)
 
             def construct(self):
                 self.plane.background_lines.set_opacity(0.3)
 
                 A = matrix
-                # latex_str = r"A = \begin{bmatrix} " \
-                #     f"{int(A[0,0])} & {int(A[0,1])} \\\\ " \
-                #     f"{int(A[1,0])} & {int(A[1,1])}" \
-                #     r" \end{bmatrix}"
-                # A_lbl = MathTex(latex_str).to_edge(UL).add_background_rectangle()
+                latex_str = r"A = \begin{bmatrix} " \
+                    f"{int(A[0,0])} & {int(A[0,1])} \\\\ " \
+                    f"{int(A[1,0])} & {int(A[1,1])}" \
+                    r" \end{bmatrix}"
+                A_lbl = MathTex(latex_str).to_edge(UL).add_background_rectangle()
 
                 # unit_square = self.get_unit_square()
                 v = self.get_vector([2, -1], color=YELLOW)
 
                 self.add_transformable_mobject(v)
-                # self.add_background_mobject(A_lbl)
+                self.add_background_mobject(A_lbl)
                 self.apply_matrix(A)
                 self.wait(2)
 
         scene = Matrix()
         scene.render()
-        # Move the latest video to our file_path
+
         latest_video = scene.renderer.file_writer.movie_file_path
         os.rename(latest_video, file_path)
 
