@@ -1,5 +1,5 @@
 This project lets you visualize vectors, basis transformations, and matrices using Manim animations.
-Experiment with 2D vectors, see how linear transformations like rotations, shears, and reflections change both the plane and the vectors, and gain a deeper conceptual understanding of linear algebra for machine learning.
+Experiment with 2D vectors, see how linear transformations change the plane and the vectors, and gain a deeper conceptual understanding of linear algebra for machine learning.
 
 Follow the following steps to use this interactive.
 
