@@ -9,8 +9,13 @@ Windows: https://www.python.org/downloads/windows/
 
 MacOS: https://www.python.org/downloads/macos/
 
+Perform the following commands in the terminal of your IDE:
 
-Install dependences in the terminal of your IDE:
+`git clone https://github.com/Ryan-ProfProjects/2D-Linear-Transformation-Visualization.git`
+
+`cd 2D-Linear-Transformation-Visualization`
+
+Install dependences:
 
 `pip install -r requirements.txt`
 
