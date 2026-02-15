@@ -51,17 +51,17 @@ async def apply_transformation(data: TransformData):
                 self.plane.background_lines.set_opacity(0.3)
 
                 A = matrix
-                latex_str = r"A = \begin{bmatrix} " \
-                    f"{int(A[0,0])} & {int(A[0,1])} \\\\ " \
-                    f"{int(A[1,0])} & {int(A[1,1])}" \
-                    r" \end{bmatrix}"
-                A_lbl = MathTex(latex_str).to_edge(UL).add_background_rectangle()
+                # latex_str = r"A = \begin{bmatrix} " \
+                #     f"{int(A[0,0])} & {int(A[0,1])} \\\\ " \
+                #     f"{int(A[1,0])} & {int(A[1,1])}" \
+                #     r" \end{bmatrix}"
+                # A_lbl = MathTex(latex_str).to_edge(UL).add_background_rectangle()
 
                 # unit_square = self.get_unit_square()
                 v = self.get_vector([2, -1], color=YELLOW)
 
                 self.add_transformable_mobject(v)
-                self.add_background_mobject(A_lbl)
+                # self.add_background_mobject(A_lbl)
                 self.apply_matrix(A)
                 self.wait(2)
 
