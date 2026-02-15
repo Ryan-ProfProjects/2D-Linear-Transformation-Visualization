@@ -5,6 +5,9 @@ Follow the following steps to use this interactive.
 
 Install Python, version > 3.10
 
+Windows: https://www.python.org/downloads/windows/
+MacOS: https://www.python.org/downloads/macos/
+
 Install dependences in the terminal of your IDE:
 
 `pip install -r requirements.txt`
