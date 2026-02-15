@@ -45,7 +45,7 @@ async def apply_transformation(data: TransformData):
     if not os.path.exists(file_path):
         class Matrix(LinearTransformationScene):
             def __init__(self):
-                LinearTransformationScene.__init__(self, show_coordinates=True, leave_ghost_vectors=True, show_basis_vectors=True)
+                LinearTransformationScene.__init__(self, show_coordinates=False, leave_ghost_vectors=True, show_basis_vectors=True)
 
             def construct(self):
                 self.plane.background_lines.set_opacity(0.3)
